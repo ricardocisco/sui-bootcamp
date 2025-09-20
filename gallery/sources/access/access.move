@@ -4,6 +4,7 @@ use gallery::admin::GalleryData;
 use sui::coin::{Self, Coin};
 use sui::sui::SUI;
 
+#[allow(unused_let_mut)]
 public fun payAccess(gallery: &mut GalleryData, mut payment: Coin<SUI>, ctx: &mut TxContext) {
     assert!(coin::value<SUI>(&payment) >= gallery.get_fee(), 1);
 
