@@ -1,10 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useGalleryData } from "@/hooks/useGalleryData";
+import { ConnectButton } from "@mysten/dapp-kit";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
   const router = useRouter();
+  const { isOwner } = useGalleryData();
 
   const handleOwnerLogin = () => {
     router.push("/dono");
@@ -15,9 +18,16 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-row h-screen justify-center items-center gap-2  ">
-      <Button onClick={handleOwnerLogin}>Entrar como dono</Button>
-      <Button onClick={handleUserLogin}>Entrar como usuário</Button>
+    <div className="flex flex-col items-center gap-2">
+      <div className="w-full flex justify-end items-center p-4 h-20">
+        <ConnectButton />
+      </div>
+      <div className="flex gap-2">
+        {isOwner && (
+          <Button onClick={handleOwnerLogin}>Entrar como dono</Button>
+        )}
+        <Button onClick={handleUserLogin}>Entrar como usuário</Button>
+      </div>
     </div>
   );
 }
